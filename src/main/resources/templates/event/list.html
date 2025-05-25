@@ -7,12 +7,11 @@
 <body>
   <h1>イベント一覧</h1>
   <table class="table table-bordered">
-    <thead><tr><th>ID</th><th>名前</th><th>結果</th><th>操作</th></tr></thead>
+    <thead><tr><th>ID</th><th>名前</th><th>操作</th></tr></thead>
     <tbody>
       <tr th:each="event : ${events}">
         <td th:text="${event.id}"></td>
         <td th:text="${event.eventName}"></td>
-        <td th:text="${event.result} ?: '未決定'"></td>
 		<!-- カテゴリー一覧 -->
         <td>
           <a th:href="@{/category/list/{id}(id=${event.id})}" class="btn btn-sm btn-info">カテゴリ一覧</a>

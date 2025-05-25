@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/base :: layout(~{::title}, ~{::body})">
+<head>
+  <title>カテゴリ一覧</title>
+</head>
+<body>
+  <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>
+  <h1>カテゴリ一覧</h1>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>カテゴリ名</th>
+        <th>結果</th>
+        <th>ルーレット</th>
+        <th>選択肢一覧</th>
+        <th>編集</th>
+        <th>削除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.categoryName}"></td>
+        <td th:text="${category.result} ?: '未決定'"></td>
+
+        <!-- 🎯ルーレット（POST） -->
+        <td>
+          <form th:action="@{/category/spin/{id}(id=${category.id})}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-success">🎯</button>
+          </form>
+        </td>
+
+        <!-- 選択肢一覧 -->
+        <td>
+          <a th:href="@{/option/list/{id}(id=${category.id})}" class="btn btn-sm btn-info">選択肢</a>
+        </td>
+
+        <!-- 編集 -->
+        <td>
+          <a th:href="@{/category/edit/{id}(id=${category.id})}" class="btn btn-sm btn-primary">編集</a>
+        </td>
+
+        <!-- 削除 -->
+        <td>
+          <a th:href="@{/category/delete/{id}(id=${category.id})}" class="btn btn-sm btn-danger"
+             onclick="return confirm('削除しますか？');">削除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/category/new/{eventId}(eventId=${eventId})}" class="btn btn-primary">＋カテゴリ追加</a>
+  <a th:href="@{/event/list}" class="btn btn-secondary">イベント一覧へ戻る</a>
+</body>
+</html>
