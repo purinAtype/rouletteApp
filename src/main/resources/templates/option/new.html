@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/base :: layout(~{::title}, ~{::body})">
+<head>
+  <title>候補追加</title>
+</head>
+<body>
+  <h1>候補追加</h1>
+
+  <form th:action="@{/option/new}" th:object="${form}" method="post">
+    <input type="hidden" th:field="*{categoryId}" />
+
+    <div class="mb-3">
+      <label>候補名</label>
+      <input type="text" th:field="*{optionLabel}" class="form-control"
+             th:classappend="${#fields.hasErrors('optionLabel')} ? 'is-invalid'"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('optionLabel')}"
+           th:errors="*{optionLabel}"></div>
+    </div>
+
+    <button type="submit" class="btn btn-success">登録</button>
+    <a th:href="@{/option/list/{categoryId}(categoryId=${form.categoryId})}" class="btn btn-secondary">戻る</a>
+  </form>
+</body>
+</html>

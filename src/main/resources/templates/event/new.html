@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/base :: layout(~{::title}, ~{::body})">
+<head>
+  <title>イベント追加</title>
+</head>
+<body>
+  <h1>イベント追加</h1>
+
+  <form th:action="@{/event/new}" th:object="${form}" method="post">
+    <div class="mb-3">
+      <label>イベント名</label>
+      <input type="text" th:field="*{eventName}" class="form-control"
+             th:classappend="${#fields.hasErrors('eventName')} ? 'is-invalid'"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('eventName')}"
+           th:errors="*{eventName}"></div>
+    </div>
+    <button type="submit" class="btn btn-success">登録</button>
+    <a href="/event/list" class="btn btn-secondary">戻る</a>
+  </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/base :: layout(~{::title}, ~{::body})">
+<head>
+  <title>選択肢一覧</title>
+</head>
+<body>
+  <h1>選択肢一覧</h1>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>候補名</th>
+        <th>編集</th>
+        <th>削除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="opt : ${options}">
+        <td th:text="${opt.id}"></td>
+        <td th:text="${opt.optionLabel}"></td>
+		<!-- 編集 -->
+        <td>
+          <a th:href="@{/option/edit/{id}(id=${opt.id})}" class="btn btn-sm btn-primary">編集</a>
+        </td>
+		<!-- 削除 -->
+        <td>
+          <a th:href="@{/option/delete/{id}(id=${opt.id})}" class="btn btn-sm btn-danger"
+             onclick="return confirm('削除しますか？');">削除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a th:href="@{/option/new/{categoryId}(categoryId=${categoryId})}" class="btn btn-success">＋候補追加</a>
+  <a th:href="@{/category/list/{id}(id=${eventId})}" class="btn btn-secondary">カテゴリに戻る</a>
+</body>
+</html>

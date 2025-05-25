@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout/base :: layout(~{::title}, ~{::body})">
+<head>
+  <title>カテゴリ追加</title>
+</head>
+<body>
+  <h1>カテゴリ追加</h1>
+
+  <form th:action="@{/category/new}" th:object="${form}" method="post">
+    <input type="hidden" th:field="*{eventId}" />
+
+    <div class="mb-3">
+      <label>カテゴリ名</label>
+      <input type="text" th:field="*{categoryName}" class="form-control"
+             th:classappend="${#fields.hasErrors('categoryName')} ? 'is-invalid'"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('categoryName')}"
+           th:errors="*{categoryName}"></div>
+    </div>
+
+    <button type="submit" class="btn btn-success">登録</button>
+    <a th:href="@{/category/list/{eventId}(eventId=${form.eventId})}" class="btn btn-secondary">戻る</a>
+  </form>
+</body>
+</html>
