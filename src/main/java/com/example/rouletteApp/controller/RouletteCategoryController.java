@@ -58,7 +58,7 @@ public class RouletteCategoryController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         CategoryForm form = service.getFormById(id);
-        model.addAttribute("form", form); // ← これが必須
+        model.addAttribute("form", form);
         return "category/edit";
     }
 
